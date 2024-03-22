@@ -45,6 +45,7 @@ class SideMenu extends StatelessWidget {
                 Divider(),
                 TextButton(
                     onPressed: () {
+                     // ignore: deprecated_member_use
                      launch('https://github.com/MustafaAhmad786/food-eCommerce-App');
                     },
                     child: FittedBox(
@@ -62,16 +63,5 @@ class SideMenu extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  void _launchGitHubURL() async {
-    const githubURL = 'https://github.com/MustafaAhmad786/food-eCommerce-App';
-    // ignore: deprecated_member_use
-    if (await canLaunch(githubURL)) {
-      // ignore: deprecated_member_use
-      await launch(githubURL);
-    } else {
-      throw 'Could not launch $githubURL';
-    }
   }
 }
