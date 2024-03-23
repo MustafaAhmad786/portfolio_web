@@ -7,13 +7,23 @@ import 'package:portofilo/Screen_/componint/Skill_Area.dart';
 import 'package:portofilo/Screen_/componint/Skill_far_flutter.dart';
 import 'package:portofilo/Screen_/componint/area_info_text.dart';
 import 'package:portofilo/constraints.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'dart:html' as html;
+import 'package:webview_flutter/webview_flutter.dart';
 
-class SideMenu extends StatelessWidget {
+class SideMenu extends StatefulWidget {
+  final String pdfUrl;
   const SideMenu({
     super.key,
+    required this.pdfUrl,
   });
 
+  @override
+  State<SideMenu> createState() => _SideMenuState();
+}
+
+late WebViewController _controller;
+
+class _SideMenuState extends State<SideMenu> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -43,15 +53,23 @@ class SideMenu extends StatelessWidget {
                 KnowladgeShortCode(),
                 SizedBox(height: defaultpadding),
                 Divider(),
+                /* Expanded(
+                  inshallah oneday this code is ready but small is not ready
+                    child: WebView(
+                  initialUrl: widget.pdfUrl,
+                  javascriptMode:JavaScriptMode.unrestricted,
+                  onWebViewCreated: (WebViewController controller) {
+                    _controller = controller;
+                  },
+                )), */
                 TextButton(
                     onPressed: () {
-                     // ignore: deprecated_member_use
-                     launch('https://github.com/MustafaAhmad786/food-eCommerce-App');
+                      downloadPdf();
                     },
                     child: FittedBox(
                       child: Row(
                         children: [
-                          Text('Download Portoflio'),
+                          Text('Download CV'),
                           SizedBox(width: 5),
                           Icon(Icons.download_for_offline)
                         ],
@@ -63,5 +81,16 @@ class SideMenu extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void downloadPdf() async {
+    // Get the current URL of the WebView
+    String cvUrl = 'assets/Resume.pdf';
+    // Create an anchor element with the PDF URL
+    html.AnchorElement anchor = html.AnchorElement(href: cvUrl);
+    // Set the download attribute and file name for the anchor element
+    anchor.setAttribute('download', 'pdf_file.pdf');
+    // Simulate a click on the anchor element to trigger the download
+    anchor.click();
   }
 }

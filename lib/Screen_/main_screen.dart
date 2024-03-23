@@ -13,7 +13,7 @@ class MainScreen extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(flex: 2, child: SideMenu()),
+            Expanded(flex: 2, child: SideMenu(pdfUrl: 'assets/Resume.pdf',)),
             Expanded(
                 flex: 7,
                 child: SingleChildScrollView(

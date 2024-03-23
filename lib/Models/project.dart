@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class Project {
   final String? title, description;
   Project({this.description, this.title});
