@@ -1,27 +1,22 @@
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+// import 'package:flutter/widgets.dart';
 import 'package:portofilo/Screen_/componint/Knowladge_Area.dart';
 import 'package:portofilo/Screen_/componint/My_Info.dart';
 import 'package:portofilo/Screen_/componint/Skill_Area.dart';
 import 'package:portofilo/Screen_/componint/Skill_far_flutter.dart';
 import 'package:portofilo/Screen_/componint/area_info_text.dart';
 import 'package:portofilo/constraints.dart';
-import 'dart:html' as html;
-import 'package:webview_flutter/webview_flutter.dart';
 
+// import 'dart:html' as html;
 class SideMenu extends StatefulWidget {
-  final String pdfUrl;
   const SideMenu({
     super.key,
-    required this.pdfUrl,
   });
 
   @override
   State<SideMenu> createState() => _SideMenuState();
 }
-
-late WebViewController _controller;
 
 class _SideMenuState extends State<SideMenu> {
   @override
@@ -64,7 +59,7 @@ class _SideMenuState extends State<SideMenu> {
                 )), */
                 TextButton(
                     onPressed: () {
-                      downloadPdf();
+                      // downloadPdf();
                     },
                     child: FittedBox(
                       child: Row(
@@ -83,14 +78,13 @@ class _SideMenuState extends State<SideMenu> {
     );
   }
 
-  void downloadPdf() async {
-    // Get the current URL of the WebView
+  /*  void downloadPdf() async {
     String cvUrl = 'assets/Resume.pdf';
-    // Create an anchor element with the PDF URL
+
     html.AnchorElement anchor = html.AnchorElement(href: cvUrl);
     // Set the download attribute and file name for the anchor element
     anchor.setAttribute('download', 'pdf_file.pdf');
     // Simulate a click on the anchor element to trigger the download
     anchor.click();
-  }
+  } */
 }

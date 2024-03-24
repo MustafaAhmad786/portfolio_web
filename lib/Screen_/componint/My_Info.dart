@@ -24,7 +24,7 @@ class MyInfo extends StatelessWidget {
                 tag: "image",
                 child: CircleAvatar(
                   radius: 50.0,
-                  backgroundImage: AssetImage('assets/image/mother-son.jpg'),
+                  backgroundImage: AssetImage('assets/image/mount-river.jpg'),
                 ),
               ),
             ),
@@ -58,7 +58,7 @@ class MyInfo extends StatelessWidget {
                 child: Hero(
                   tag: "image",
                   child: Image.asset(
-                    'assets/image/mother-son.jpg',
+                    'assets/image/mount-river.jpg',
                     height: 700,
                     width: 700,
                   ),

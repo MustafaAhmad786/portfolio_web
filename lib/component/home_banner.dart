@@ -1,6 +1,9 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:portofilo/constraints.dart';
+import 'package:portofilo/responsive.dart';
 
 class HomeBanner extends StatelessWidget {
   const HomeBanner({
@@ -27,26 +30,34 @@ class HomeBanner extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  "Discover my amazing \nArt space!",
-                  style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                      fontWeight: FontWeight.bold, color: Colors.white),
-                ),
-                MyBuidAnimatedText(),
+                Text("Discover my amazing \nArt space!",
+                    style: Responsive.isDesktop(context)
+                        ? Theme.of(context).textTheme.displaySmall!.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            )
+                        : Theme.of(context).textTheme.titleLarge!.copyWith(
+                            fontWeight: FontWeight.bold, color: Colors.white)),
                 SizedBox(
                   height: defaultpadding,
                 ),
-                ElevatedButton(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: defaultpadding * 2,
-                            vertical: defaultpadding),
-                        backgroundColor: Colors.yellow),
-                    child: Text(
-                      "EXPLORA NOW",
-                      style: TextStyle(color: darkcolor),
-                    ))
+                if (Responsive.isMobilelarge(context))
+                  SizedBox(
+                    height: defaultpadding / 2,
+                  ),
+                Expanded(child: MyBuidAnimatedText()),
+                if (!Responsive.isMobilelarge(context))
+                  ElevatedButton(
+                      onPressed: () {},
+                      style: TextButton.styleFrom(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: defaultpadding * 2,
+                              vertical: defaultpadding),
+                          backgroundColor: Colors.yellow),
+                      child: Text(
+                        "EXPLORA NOW",
+                        style: TextStyle(color: darkcolor),
+                      ))
               ],
             ),
           )
@@ -67,10 +78,11 @@ class MyBuidAnimatedText extends StatelessWidget {
       style: Theme.of(context).textTheme.titleMedium!,
       child: Row(
         children: [
-          FlutterCodeText(),
-          SizedBox(
-            width: 1,
-          ),
+          if (!Responsive.isMobilelarge(context)) FlutterCodeText(),
+          if (!Responsive.isMobilelarge(context))
+            SizedBox(
+              width: 1,
+            ),
           Text('I build '),
           AnimatedTextKit(animatedTexts: [
             TyperAnimatedText(
@@ -82,7 +94,7 @@ class MyBuidAnimatedText extends StatelessWidget {
           SizedBox(
             width: 4,
           ),
-          FlutterCodeText(),
+          if (!Responsive.isMobilelarge(context)) FlutterCodeText(),
         ],
       ),
     );

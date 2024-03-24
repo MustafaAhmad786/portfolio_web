@@ -1,7 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:portofilo/Models/project.dart';
 import 'package:portofilo/constraints.dart';
+import 'package:portofilo/responsive.dart';
 
 class MyProject extends StatelessWidget {
   const MyProject({
@@ -18,23 +18,50 @@ class MyProject extends StatelessWidget {
           child: Text("My Project",
               style: Theme.of(context).textTheme.titleLarge!),
         ),
-        SizedBox(height: defaultpadding),
-        GridView.builder(
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              childAspectRatio: 1.7,
-              mainAxisSpacing: 7,
-              crossAxisSpacing: defaultpadding / 3.5),
-          itemCount: demo_projects.length,
-          itemBuilder: (BuildContext context, int index) {
-            return ProjectCard(
-              project: demo_projects[index],
-            );
-          },
-        ),
+        SizedBox(height: defaultpadding / 6),
+        Responsive(
+          mobile: ProjectGridView(
+            crossAxisCount: 1,
+            childaspectratio: 1.7,
+          ),
+          mobilelarge: ProjectGridView(
+            crossAxisCount: 2,
+            childaspectratio: 1,
+          ),
+          tablet: ProjectGridView(
+            childaspectratio: 0.9,
+          ),
+          desktop: ProjectGridView(),
+        )
       ],
+    );
+  }
+}
+
+class ProjectGridView extends StatelessWidget {
+  const ProjectGridView({
+    Key? key,
+    this.crossAxisCount = 3,
+    this.childaspectratio = 1.3,
+  }) : super(key: key);
+  final int crossAxisCount;
+  final double childaspectratio;
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: crossAxisCount,
+          childAspectRatio: childaspectratio,
+          mainAxisSpacing: 7,
+          crossAxisSpacing: defaultpadding / 2.3),
+      itemCount: demo_projects.length,
+      itemBuilder: (BuildContext context, int index) {
+        return ProjectCard(
+          project: demo_projects[index],
+        );
+      },
     );
   }
 }
@@ -48,7 +75,7 @@ class ProjectCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(15),
+      padding: const EdgeInsets.all(defaultpadding),
       child: Container(
         decoration: BoxDecoration(boxShadow: [
           BoxShadow(
@@ -78,7 +105,11 @@ class ProjectCard extends StatelessWidget {
               style: Theme.of(context).textTheme.titleSmall,
             ),
             Spacer(),
-            Text(demo_projects[0].description!),
+            Text(
+              overflow: TextOverflow.ellipsis,
+              demo_projects[0].description!,
+              maxLines: Responsive.isMobilelarge(context) ? 3 : 4,
+            ),
             Spacer(),
             TextButton(
                 onPressed: () {},

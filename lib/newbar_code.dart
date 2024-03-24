@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:portofilo/constraints.dart';
+import 'package:portofilo/responsive.dart';
 
 class HighLightsInfo extends StatelessWidget {
   const HighLightsInfo({
@@ -11,27 +12,59 @@ class HighLightsInfo extends StatelessWidget {
     return Padding(
       padding:
           const EdgeInsets.symmetric(vertical: defaultpadding, horizontal: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          HighltCounter(
-            counter: AnimatedCounter(value: 10, text: "M+"),
-            label: "Subscribe",
-          ),
-          HighltCounter(
-            counter: AnimatedCounter(value: 735, text: "+"),
-            label: "Video",
-          ),
-          HighltCounter(
-            counter: AnimatedCounter(value: 8, text: "+"),
-            label: "Github Project",
-          ),
-          HighltCounter(
-            counter: AnimatedCounter(value: 100, text: "+"),
-            label: "Star",
-          ),
-        ],
-      ),
+      child: Responsive.isMobilelarge(context)
+          ? Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    HighltCounter(
+                      counter: AnimatedCounter(value: 10, text: "M+"),
+                      label: "Subscribe",
+                    ),
+                    HighltCounter(
+                      counter: AnimatedCounter(value: 735, text: "+"),
+                      label: "Video",
+                    ),
+                  ],
+                ),
+                SizedBox(height: defaultpadding),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    HighltCounter(
+                      counter: AnimatedCounter(value: 8, text: "+"),
+                      label: "Github Project",
+                    ),
+                    HighltCounter(
+                      counter: AnimatedCounter(value: 100, text: "+"),
+                      label: "Star",
+                    ),
+                  ],
+                )
+              ],
+            )
+          : Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                HighltCounter(
+                  counter: AnimatedCounter(value: 10, text: "M+"),
+                  label: "Subscribe",
+                ),
+                HighltCounter(
+                  counter: AnimatedCounter(value: 735, text: "+"),
+                  label: "Video",
+                ),
+                HighltCounter(
+                  counter: AnimatedCounter(value: 8, text: "+"),
+                  label: "Github Project",
+                ),
+                HighltCounter(
+                  counter: AnimatedCounter(value: 100, text: "+"),
+                  label: "Star",
+                ),
+              ],
+            ),
     );
   }
 }
