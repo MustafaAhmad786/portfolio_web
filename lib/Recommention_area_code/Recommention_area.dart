@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:portofilo/Models/recommendation.dart';
 import 'package:portofilo/constraints.dart';
@@ -48,25 +50,31 @@ class RecommentionCard extends StatelessWidget {
   final Recommendation recommendation;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 345,
-      padding: EdgeInsets.all(defaultpadding),
-      color: secondarycolor,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            recommendation.name!,
-            style: Theme.of(context).textTheme.titleSmall,
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(10),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+        child: Container(
+          width: 345,
+          padding: EdgeInsets.all(defaultpadding),
+          color: Colors.white.withOpacity(0.100),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                recommendation.name!,
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
+              Text(
+                recommendation.source!,
+              ),
+              SizedBox(height: 10),
+              Text(
+                recommendation.text!,
+              )
+            ],
           ),
-          Text(
-            recommendation.source!,
-          ),
-          SizedBox(height: 10),
-          Text(
-            recommendation.text!,
-          )
-        ],
+        ),
       ),
     );
   }

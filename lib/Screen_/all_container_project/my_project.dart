@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:portofilo/Models/project.dart';
 import 'package:portofilo/constraints.dart';
 import 'package:portofilo/responsive.dart';
@@ -68,56 +71,52 @@ class ProjectGridView extends StatelessWidget {
 
 class ProjectCard extends StatelessWidget {
   const ProjectCard({
-    super.key,
+    Key? key,
     required this.project,
-  });
+  }) : super(key: key);
+
   final Project project;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(defaultpadding),
-      child: Container(
-        decoration: BoxDecoration(boxShadow: [
-          BoxShadow(
-            color: Colors.red.withOpacity(0.5),
-            blurRadius: 5,
-            offset: Offset(0, 0),
-          ),
-          BoxShadow(
-            color: Colors.green.withOpacity(0.5),
-            blurRadius: 5,
-            offset: Offset(0, 6),
-          ),
-          BoxShadow(
-            color: Colors.blue.withOpacity(0.5),
-            blurRadius: 5,
-            offset: Offset(0, 1),
-          ),
-        ], color: secondarycolor, borderRadius: BorderRadius.circular(10)),
-        padding: EdgeInsets.all(defaultpadding),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              demo_projects[0].title!,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.titleSmall,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+          child: Container(
+            padding: EdgeInsets.all(defaultpadding),
+            decoration: BoxDecoration(
+              color:
+                  Colors.white.withOpacity(0.100), // Adjust opacity as needed
             ),
-            Spacer(),
-            Text(
-              overflow: TextOverflow.ellipsis,
-              demo_projects[0].description!,
-              maxLines: Responsive.isMobilelarge(context) ? 3 : 4,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  demo_projects[0].title!,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
+                Spacer(),
+                Text(
+                  demo_projects[0].description!,
+                  maxLines: Responsive.isMobilelarge(context) ? 3 : 4,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Spacer(),
+                TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    'Read All',
+                    style: TextStyle(color: Colors.yellow),
+                  ),
+                )
+              ],
             ),
-            Spacer(),
-            TextButton(
-                onPressed: () {},
-                child: Text(
-                  'Read All',
-                  style: TextStyle(color: Colors.yellow),
-                ))
-          ],
+          ),
         ),
       ),
     );

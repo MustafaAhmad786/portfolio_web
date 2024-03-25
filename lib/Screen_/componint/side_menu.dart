@@ -1,14 +1,15 @@
-// import 'package:flutter/cupertino.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
-// import 'package:flutter/widgets.dart';
+import 'package:flutter/services.dart';
 import 'package:portofilo/Screen_/componint/Knowladge_Area.dart';
 import 'package:portofilo/Screen_/componint/My_Info.dart';
 import 'package:portofilo/Screen_/componint/Skill_Area.dart';
 import 'package:portofilo/Screen_/componint/Skill_far_flutter.dart';
 import 'package:portofilo/Screen_/componint/area_info_text.dart';
 import 'package:portofilo/constraints.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:open_file/open_file.dart';
 
-// import 'dart:html' as html;
 class SideMenu extends StatefulWidget {
   const SideMenu({
     super.key,
@@ -48,19 +49,9 @@ class _SideMenuState extends State<SideMenu> {
                 KnowladgeShortCode(),
                 SizedBox(height: defaultpadding),
                 Divider(),
-                /* Expanded(
-                  inshallah oneday this code is ready but small is not ready
-                    child: WebView(
-                  initialUrl: widget.pdfUrl,
-                  javascriptMode:JavaScriptMode.unrestricted,
-                  onWebViewCreated: (WebViewController controller) {
-                    _controller = controller;
-                  },
-                )), */
+               
                 TextButton(
-                    onPressed: () {
-                      // downloadPdf();
-                    },
+                    onPressed: () => _downloadPdf(context),
                     child: FittedBox(
                       child: Row(
                         children: [
@@ -69,7 +60,8 @@ class _SideMenuState extends State<SideMenu> {
                           Icon(Icons.download_for_offline)
                         ],
                       ),
-                    ))
+                    )),
+                      
               ],
             ),
           ))
@@ -78,7 +70,37 @@ class _SideMenuState extends State<SideMenu> {
     );
   }
 
-  /*  void downloadPdf() async {
+  void _downloadPdf(BuildContext context) async {
+    try {
+      // Get the directory for storing files
+      Directory appDocDir = await getApplicationDocumentsDirectory();
+      String appDocPath = appDocDir.path;
+
+      // Define the file path for the PDF
+      String pdfPath = '$appDocPath/Resume.pdf';
+
+      // Get the PDF file from assets
+      ByteData data = await rootBundle.load('assets/svg_icon/Resume.pdf');
+      List<int> bytes = data.buffer.asUint8List();
+
+      // Write the PDF file to the app's local storage
+      await File(pdfPath).writeAsBytes(bytes);
+
+      // Open the downloaded PDF file
+      await OpenFile.open(pdfPath);
+    } catch (e) {
+      print('Error downloading PDF: $e');
+    }
+  }
+/*   void _downloadPdf() async {
+    const pdfUrl = 'assets/Resume.pdf';
+    if (await canLaunch(pdfUrl)) {
+      await launch(pdfUrl);
+    } else {
+      throw 'Could not launch $pdfUrl';
+    }
+  } */
+  /*  void downloadPdf() async { its work in web appliction not mobile work
     String cvUrl = 'assets/Resume.pdf';
 
     html.AnchorElement anchor = html.AnchorElement(href: cvUrl);
